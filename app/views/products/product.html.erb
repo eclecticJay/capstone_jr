@@ -1,0 +1,23 @@
+<!-- <p>Our Products:</p>
+<% @products.each do |product| %>
+	<%= product.name %>
+	<%= product.price %>
+	<% end %> -->
+
+	 <table class=" table table-striped" data-sort-name="name" data-sort-order="desc">
+  <thead>
+    <tr>
+      <th data-field="name" data-sortable="true">Name</th>
+      <th data-field="price" data-sortable="true">Price</th>
+    </tr>
+  </thead>
+
+	 <tbody>
+    <% @products.each do |product| %>
+      <tr>
+        <td><%= product.name %></td>
+        <td><%= product.price %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
