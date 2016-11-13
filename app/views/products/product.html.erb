@@ -1,10 +1,10 @@
-<!-- <p>Our Products:</p>
+<p>Our Products:</p>
 <% @products.each do |product| %>
-	<%= product.name %>
-	<%= product.price %>
-	<% end %> -->
+	<h2><a href="/products/<%=product.id %>"><%= product.name %></a></h2>
+	<h5><%= product.price %></h5>
+	<% end %>
 
-	 <table class=" table table-striped" data-sort-name="name" data-sort-order="desc">
+	<!--  <table class=" table table-striped" data-sort-name="name" data-sort-order="desc">
   <thead>
     <tr>
       <th data-field="name" data-sortable="true">Name</th>
@@ -20,4 +20,4 @@
       </tr>
     <% end %>
   </tbody>
-</table>
+</table> --> 

@@ -1,0 +1,8 @@
+<h4>New product added to production</h4>
+<h2><%= @product.name %></h2
+>
+<h5><%= @product.price %></h5>
+
+<%= form_tag "/products/#{@product.id}", method: :delete do %> 
+<% submit_tag 'Too old' %>
+<% end %>
