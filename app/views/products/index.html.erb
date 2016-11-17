@@ -1,0 +1,33 @@
+<p>Our Products:</p>
+
+<% @products.each_slice(3) do |three_products| %>
+<!-- three_products is an array -->
+<!-- we want to put all three of them in the same row -->
+<!-- then we want to end that before the next group of three -->
+	<div class = "row">
+  <% three_products.each do |product| %>
+  <div class = "col-md-4">
+  <h5><%= product.friendly %></h5>
+  <h3><a href="/products/<%=product.id %>"><%= product.name %></a></h3>
+	<h5><%= number_to_currency product.price %></h5>
+  </div>
+	<% end %>
+  </div>
+  <% end %>
+	<!--  <table class=" table table-striped" data-sort-name="name" data-sort-order="desc">
+  <thead>
+    <tr>
+      <th data-field="name" data-sortable="true">Name</th>
+      <th data-field="price" data-sortable="true">Price</th>
+    </tr>
+  </thead>
+
+	 <tbody>
+    <% @products.each do |product| %>
+      <tr>
+        <td><%= product.name %></td>
+        <td><%= product.price %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table> --> 

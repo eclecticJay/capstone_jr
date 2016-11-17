@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
 	def index
 		@products = Product.all
-		render 'product.html.erb'
+		render 'index.html.erb'
 	end
 	
 	def show
@@ -16,29 +16,36 @@ class ProductsController < ApplicationController
 
 	def create
 	#make a new recipe from the params
-	@product = Product.new({name: params["name"], price: params["price"]})
-	 @product.save
-		render 'create.html.erb'
+	product = Product.new({ image: params["image"], name: params["name"], price: params["price"], decription: params["description"], stock: params["stock"]})
+	 	product.save
+		# render 'create.html.erb'
+		#add a flash message
+		flash[:success] = "New product created"
+		redirect_to "/products/#{product.id}"
 	end
 
 	def edit 
 		@product = Product.find_by(id: params[:id])
+		flash[:warning] = "You are editing your item"
 		render 'edit.html.erb'
-		@product.update
 	end
 
 	def update
-		@product = Product.find_by( id: params["id"])
-		@product.update(name: params["name"], price: params["price"])
-		render 'update.html.erb'
+		product = Product.find_by( id: params["id"])
+		product.update(image: params["image"], name: params["name"], price: params["price"], decription: params["description"], stock: params["stock"])
+		# render 'update.html.erb'
+		flash[:info] = "Item has been updated"
+		redirect_to "/products/#{product.id}"
 	end
 
 	def destroy
 		#grab the right product
-		@product = Product.find_by( id: params["id"])
+		product = Product.find_by( id: params["id"])
 		#kill it 
-		@product.destroy
-		render 'destory.html.erb'
+		product.destroy
+		# render 'destory.html.erb'
+		flash[:danger] = "Item destroyed"
+		redirect_to "/products"
 	end
 
 end
