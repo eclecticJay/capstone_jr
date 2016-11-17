@@ -32,7 +32,7 @@ class ProductsController < ApplicationController
 
 	def update
 		product = Product.find_by( id: params["id"])
-		product.update(image: params["image"], name: params["name"], price: params["price"], decription: params["description"], stock: params["stock"])
+		product.update(image: params["image"], name: params["name"], price: params["price"], description: params["description"], stock: params["stock"])
 		# render 'update.html.erb'
 		flash[:info] = "Item has been updated"
 		redirect_to "/products/#{product.id}"
