@@ -1,0 +1,7 @@
+<h4>Searched Item</h4>
+<h2><%= @product.name %></h2
+>
+<h5><%=@product.description%></h5>
+<h5>Price:<%= number_to_currency@product.price %></h5>
+<h5>Tax:<%= number_to_currency(@product.tax) %></h5>
+<h5>Total:<%= number_to_currency(@product.total) %></h5>

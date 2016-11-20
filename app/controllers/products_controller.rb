@@ -1,12 +1,27 @@
 class ProductsController < ApplicationController
 	def index
+		if params["sort_attribute"] == 'price'
+		@products = Product.order(price: :desc)
+	elsif params["lowest_attribute"] == 'low'
+		@products = Product.order(:price)
+	elsif params["discount_item"] == 'for_the_low'
+		@products = Product.where("price < ?", 2 )
+	elsif params["name_title"] == 'order'
+		@products = Product.order(:name)
+	elsif 
+		@products = Product.where("name LIKE ?","%#{params['search']}%")
+	else
 		@products = Product.all
 		render 'index.html.erb'
 	end
-	
+	end
+
 	def show
-		# p params
-		@product = Product.find_by(id: params[:id] )
+		if params["id"] == 'random'
+			@product = Product.all.sample
+		elsif # p params
+			@product = Product.find_by(id: params[:id] )
+		end
 		render 'show.html.erb'
 	end
 
@@ -16,7 +31,7 @@ class ProductsController < ApplicationController
 
 	def create
 	#make a new recipe from the params
-	product = Product.new({ image: params["image"], name: params["name"], price: params["price"], decription: params["description"], stock: params["stock"]})
+	product = Product.new({ image: params["image"], name: params["name"], price: params["price"], description: params["description"], stock: params["stock"]})
 	 	product.save
 		# render 'create.html.erb'
 		#add a flash message
@@ -48,4 +63,11 @@ class ProductsController < ApplicationController
 		redirect_to "/products"
 	end
 
+	def search 
+		#grab all the items in the db that have my search tearm in them
+		content = params["search_content"] 
+		@products = Product.where("name LIKE ?","%#{content}%")
+		p @products
+		render 'index.html.erb'
+	end
 end
