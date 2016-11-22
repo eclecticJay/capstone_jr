@@ -9,7 +9,8 @@
   <div class = "col-md-4">
   <h5><%= product.friendly %></h5>
   <h3><a href="/products/<%=product.id %>"><%= product.name %></a></h3>
-	<h5><%= number_to_currency product.price %></h5>  
+	<h5><%= number_to_currency product.price %></h5> 
+  <h5><%= product.supplier_id %></h5> 
   </div>
 	<% end %>
   </div>

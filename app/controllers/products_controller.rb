@@ -31,7 +31,7 @@ class ProductsController < ApplicationController
 
 	def create
 	#make a new recipe from the params
-	product = Product.new({ image: params["image"], name: params["name"], price: params["price"], description: params["description"], stock: params["stock"]})
+	product = Product.new({ image: params["image"], name: params["name"], price: params["price"], description: params["description"], stock: params["stock"], supplier_id: params["supplier_id"]})
 	 	product.save
 		# render 'create.html.erb'
 		#add a flash message
