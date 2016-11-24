@@ -1,12 +1,8 @@
 <h2>New product!</h2>
 
 <%= form_tag '/products', method: :post do %>
-<div>
 
 <div>
- <%= label_tag :image %>
- <%= text_field_tag :image %>
-</div>
  <%= label_tag :name %>
  <%= text_field_tag :name %>
 </div>
@@ -20,15 +16,11 @@
  <%= label_tag :description %>
  <%= text_field_tag :description  %>
 </div>
-<div>
- <%= label_tag :stock %>
- <%= text_field_tag :stock  %>
-</div>
+
 <div>
  <%= label_tag :supplier_id %>
  <%= text_field_tag :supplier_id  %>
 </div>
-
 
 <%= submit_tag 'Make a new product' %>
 <% end %>

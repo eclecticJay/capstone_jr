@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'bcrypt', '~> 3.1.7'
 gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
 gem 'bootstrap-sass', '~> 3.3.6'
 # Use postgresql as the database for Active Record

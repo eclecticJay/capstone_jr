@@ -1,5 +1,8 @@
 class ProductsController < ApplicationController
 	def index
+		if session[:user_id]
+			@user = User.find(session[:user_id])
+		end
 		if params["sort_attribute"] == 'price'
 			@products = Product.order(price: :desc)
 		elsif params["lowest_attribute"] == 'low'
@@ -31,7 +34,12 @@ class ProductsController < ApplicationController
 
 	def create
 	#make a new recipe from the params
-	product = Product.new({ image: params["image"], name: params["name"], price: params["price"], description: params["description"], stock: params["stock"], supplier_id: params["supplier_id"]})
+	
+	product = Product.new({ name: params["name"], 
+		price: params["price"], 
+		description: params["description"], 
+		supplier_id: params["supplier_id"], 
+		user_id: current_user.id})
 	 	product.save
 		# render 'create.html.erb'
 		#add a flash message
@@ -47,7 +55,7 @@ class ProductsController < ApplicationController
 
 	def update
 		product = Product.find_by( id: params["id"])
-		product.update(image: params["image"], name: params["name"], price: params["price"], description: params["description"], stock: params["stock"])
+		product.update(name: params["name"], price: params["price"], description: params["description"], supplier_id: params["supplier_id"],)
 		# render 'update.html.erb'
 		flash[:info] = "Item has been updated"
 		redirect_to "/products/#{product.id}"
