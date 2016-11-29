@@ -1,6 +1,9 @@
 class Product < ApplicationRecord
 	belongs_to :user
 	belongs_to :supplier
+	has_many :order
+	has_many :categorized_products
+	has_many :categories, through: :categorized_products
 	def friendly
 		created_at.strftime("%b %d, %Y")
 	end

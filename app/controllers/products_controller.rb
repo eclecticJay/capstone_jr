@@ -1,18 +1,22 @@
 class ProductsController < ApplicationController
 	def index
-		if session[:user_id]
-			@user = User.find(session[:user_id])
-		end
-		if params["sort_attribute"] == 'price'
-			@products = Product.order(price: :desc)
-		elsif params["lowest_attribute"] == 'low'
-			@products = Product.order(:price)
-		elsif params["discount_item"] == 'for_the_low'
-			@products = Product.where("price < ?", 2 )
-		elsif params["name_title"] == 'order'
-			@products = Product.order(:name)
-		elsif 
-			@products = Product.where("name LIKE ?","%#{params['search']}%")
+		# if session[:user_id]
+		# 	@user = User.find(session[:user_id])
+		# end
+		# if params["sort_attribute"] == 'price'
+		# 	@products = Product.order(price: :desc)
+		# elsif params["lowest_attribute"] == 'low'
+		# 	@products = Product.order(:price)
+		# elsif params["discount_item"] == 'for_the_low'
+		# 	@products = Product.where("price < ?", 2 )
+		# elsif params["name_title"] == 'order'
+		# 	@products = Product.order(:name)
+		# elsif 
+		# 	@products = Product.where("name LIKE ?","%#{params['search']}%")
+		if params[:category]
+			category_name = params[:category]
+			category = Category.find_by(name: category_name)
+			@products = category.products
 		else
 			@products = Product.all
 			render 'index.html.erb'

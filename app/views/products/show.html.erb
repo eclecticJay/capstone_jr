@@ -6,8 +6,19 @@
 <h5>Tax:<%= number_to_currency(@product.tax) %></h5>
 <h5>Total:<%= number_to_currency(@product.total) %></h5>
 <h5><%=@product.sale_message%></h5>
-
-<%= form_tag "/products/#{@product.id}", method: :delete do %> 
-<% submit_tag 'Too old' %>
-<% end %>
-	
+<div>
+	<%= form_tag "/products/#{@product.id}", method: :delete do %> 
+	<% submit_tag ' Too old  ' %>
+	<% end %>
+</div>
+<div>
+	<%= form_tag "/orders", method: :post do %>
+		<%= label_tag :quantity%>
+		<%= text_field_tag :quantity%>
+		<%= label_tag :product_id %>
+		<%= text_field_tag :product_id %>
+		<div>
+		<%= submit_tag 'Buy Now!' %>
+		</div>
+	<% end %>
+</div>		
