@@ -1,28 +1,26 @@
 class OrdersController < ApplicationController
+	before_action :authenticate_admin! 
 	def create
-		p product = Product.find(params[:product_id])
-		price = product.price
-		quantity = params["quantity"].to_i
-		subtotal = price * quantity
-		tax_rate = 0.1
+		carted_products = current_user.carted_products.where(status:"carted")
+			order1 = Order.new(
+			user_id: current_user.id,
+			)
+		order1.save
 
-		order = Order.new({ 
-		quantity: params["quantity"],
-		user_id: current_user.id,
-		product_id: params["product_id"],
-		subtotal: price * quantity,
-		tax: tax_rate * price * quantity,
-		total: (tax_rate * price * quantity) + (price * quantity) 
-		})
-	 	order.save
-		# render 'create.html.erb'
-		#add a flash message
-		flash[:success] = "Added Product to cart"
-		redirect_to "/orders/#{order.id}"
+		carted_products.each do |carted_products|
+		carted_products.update(status: "purchased")
+		carted_products.update(order_id: order1.id)
+	end
+	order1.save_all_totals
+		redirect_to"/orders/#{order1.id}"
 	end
 	def show
+		#unless you made this order go away 
+		#compare the user_id from the order to the current usere id 
 		@order = Order.find(params[:id])
-		@user = @order.user
+		unless current_user.id == @order.user_id || current_user.admin
+			redirect_to '/products'
+		end
 	end
 end
 

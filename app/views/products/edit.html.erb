@@ -1,23 +1,17 @@
 <h4>Here is your form to edit </h4>
+<% if @product.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@product.errors.count, "error") %> prohibited this article from being saved:</h2>
+ 
+    <ul>
+    <% @product.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
 
 <%= form_tag "/products/#{@product.id}", method: :patch do %>
-
-<div>
-		<%= label_tag :image %>
-		<%= text_field_tag :image, @product.image %>
-</div>
-
-<div>
-		<%= label_tag :name %>
-		<%= text_field_tag :name, @product.name %>
-</div>
-<div>
- 	<%= label_tag :price %>
- 	<%= text_field_tag :price, @product.price %>
-</div>
-<div>
-		<%= label_tag :description %>
-		<%= text_field_tag :description, @product.description %>
-</div>
+<%= render 'form.html.erb' %>
 <%= submit_tag 'Edit our items' %>
 <% end %>

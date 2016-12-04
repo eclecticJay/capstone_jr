@@ -1,4 +1,5 @@
 class ProductsController < ApplicationController
+	before_action :authenticate_admin!, only: [:create, :update, :destroy, :new, :edit]
 	def index
 		# if session[:user_id]
 		# 	@user = User.find(session[:user_id])
@@ -33,39 +34,44 @@ class ProductsController < ApplicationController
 	end
 
 	def new
-		render 'new.html.erb'
+		@product = Product.new
 	end
 
 	def create
 	#make a new recipe from the params
 	
-	product = Product.new({ name: params["name"], 
+	@product = Product.new({ name: params["name"], 
 		price: params["price"], 
 		description: params["description"], 
 		supplier_id: params["supplier_id"], 
 		user_id: current_user.id})
-	 	product.save
+	 	if @product.save #happy path
 		# render 'create.html.erb'
 		#add a flash message
 		flash[:success] = "New product created"
 		redirect_to "/products/#{product.id}"
+		else
+		render "new.html.erb"
+		end
 	end
 
 	def edit 
 		@product = Product.find_by(id: params[:id])
-		flash[:warning] = "You are editing your item"
-		render 'edit.html.erb'
 	end
 
 	def update
-		product = Product.find_by( id: params["id"])
-		product.update(name: params["name"], price: params["price"], description: params["description"], supplier_id: params["supplier_id"],)
-		# render 'update.html.erb'
-		flash[:info] = "Item has been updated"
-		redirect_to "/products/#{product.id}"
+		@product = Product.find_by( id: params["id"])
+		if @product.update(name: params["name"], price: params["price"], description: params["description"], supplier_id: params["supplier_id"],)
+			# render 'update.html.erb'
+			flash[:info] = "Item has been updated"
+			redirect_to "/products/#{product.id}"
+		else
+			render "edit.html.erb"
+		end
 	end
 
 	def destroy
+		redirect_to "/products"
 		#grab the right product
 		product = Product.find_by( id: params["id"])
 		#kill it 

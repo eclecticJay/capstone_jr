@@ -1,8 +1,14 @@
 <h4>Added to Cart</h4>
 <h5>Order Id:<%= @order.id + 47643%></h5>
-<h5>Order Amount:<%= @order.quantity%></h5>
-<h5>Subtotal:<%= number_to_currency @order.subtotal %></h5>
-<h5>Tax:<%= number_to_currency@order.tax %></h5>
-<h5>Total:<%= number_to_currency@order.total %></h5>
+<h5>Subtotal:<%= number_to_currency (@order.subtotal) %></h5>
+<h5>Tax:<%= number_to_currency(@order.tax) %></h5>
+<h5>Total:<%= number_to_currency(@order.total) %></h5>
 <p><%= @order.user.email %></p>
-<div>
+
+<p>Items Order</p>
+<!-- I want all the the carted_products associated with this order -->
+<% @order.carted_products.each do |carted_product| %>
+<p><%= carted_product.product.name %></p>
+<p>Quantity:<%= carted_product.quantity %></p>
+<p>Price:<%= carted_product.product.price %></p>
+<%end %>

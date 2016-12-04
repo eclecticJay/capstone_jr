@@ -1,7 +1,11 @@
 class Product < ApplicationRecord
-	belongs_to :user
-	belongs_to :supplier
-	has_many :order
+	has_many :carted_products
+	has_many :orders, through: :carted_products
+	validates :name, presence: true
+  validates :price, numericality: { only_integer: true, greater_than: 0, less_than: 5000 } 
+
+	belongs_to :supplier, optional: true  
+	belongs_to :user, optional: true 
 	has_many :categorized_products
 	has_many :categories, through: :categorized_products
 	def friendly
